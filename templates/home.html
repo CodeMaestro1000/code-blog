@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<section id="intro">
+    <h2>Hi there, I'm Tim</h2>
+    <img src="{% static 'images/portfolio.jpg' %}" alt=""/>
+    <p id="desc"><em>Part-time engineer, full-time creator.</em></p>
+    <article id="intro-article">
+        <p>
+            I'd love to welcome you to my site. 
+            If you're reading this, I'm guessing that like me, you love designing ideas and building things and if that's the case, then you're in the perfect place. 
+            You'll find topics ranging from embedded systems to artificial intelligence and even web development.
+            I'm really happy to have you on here and I'd love to hear your experiences on your way to bringing your ideas to life.
+            Please reach out via any medium in the contact session and let's build our future together.
+            <br>
+            Once again, you're most welcome!!!
+        </p>
+    </article>
+</section>
+
+{% endblock content %}

@@ -1,0 +1,133 @@
+body{
+    color: rgb(14, 47, 117);
+}
+
+.navbar {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    border-bottom: solid 1px rgb(14, 47, 117);
+    padding-top: 1%;
+    padding-left: 1%;
+    padding-right: 1%;
+}
+
+.navbar ul {
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 2rem;
+    margin-top: 1%;
+    font-size: 1.2em;
+}
+
+.navbar li {
+    list-style: none;
+    margin-right: 2rem;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: rgb(14, 47, 117);
+    padding: 1.7rem 1.5rem;
+}
+
+.navbar a:hover {
+    color: #ffff;
+    background: rgb(14, 47, 117);
+}
+
+#text-logo {
+    text-align: left;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.5em;
+}
+
+#contact {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    
+}
+
+#contact h2 {
+    margin-top: 2%;
+    font-size: 1.6rem;
+}
+
+#contact p {
+    margin-bottom: 3%;
+}
+
+.btn {
+    text-decoration: none;
+    color: rgb(14, 47, 117);
+}
+
+.footer {
+    border-top: solid 2px rgb(14, 47, 117);
+    text-align: center;
+    padding: 2%;
+}
+
+#intro {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-top: 4%;
+}
+
+#intro img {
+    width: 15%;
+    height: auto;
+    border-radius: 50%;
+    margin-top: 1%;
+    margin-bottom: 1%;
+}
+
+#intro-article {
+    text-align: justify;
+    text-justify: inter-word;
+    padding: 0 4%;
+    line-height: 2.5em;
+    border-bottom: solid 2px rgb(14, 47, 117);
+}
+
+@media screen and (max-width: 425px) {
+    body {
+        font-size: 14px;
+    }
+
+    .navbar {
+      display: block;
+    }
+    
+    .navbar ul {
+      display: block;
+      padding: 0;
+      margin-top: 2%;
+      font-size: 14px;
+    }
+    
+    .navbar a {
+      padding: 0;
+    }
+    #intro img {
+        width: 45%;
+        height: auto;
+        border-radius: 50%;
+        margin-top: 1%;
+        margin-bottom: 1%;
+    }
+
+
+    #contact h2 {
+        font-size: 18px;
+    }
+
+    .contact-links {
+        display: flex;
+        flex-direction: row;    
+    }
+}
