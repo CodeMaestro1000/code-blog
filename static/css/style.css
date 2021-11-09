@@ -1,5 +1,10 @@
 body{
     color: rgb(14, 47, 117);
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 .navbar {
@@ -7,9 +12,13 @@ body{
     flex-direction: row;
     width: 100%;
     border-bottom: solid 1px rgb(14, 47, 117);
+    background-color: #ffff;
     padding-top: 1%;
     padding-left: 1%;
     padding-right: 1%;
+    position: sticky;
+    top: 0;
+    left: 0;
 }
 
 .navbar ul {
@@ -42,11 +51,9 @@ body{
     font-size: 1.5em;
 }
 
+
 #contact {
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    
+    padding-bottom: 1%;
 }
 
 #contact h2 {
@@ -58,13 +65,23 @@ body{
     margin-bottom: 3%;
 }
 
-.btn {
+.btn-link {
     text-decoration: none;
-    color: rgb(14, 47, 117);
+    color: #ffff;
+    padding: 1%;
+}
+
+.btn-link:hover {
+    background: #ffff;
 }
 
 .footer {
-    border-top: solid 2px rgb(14, 47, 117);
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background:  rgb(14, 47, 117);
+    color: #ffff;
     text-align: center;
     padding: 2%;
 }
@@ -91,7 +108,7 @@ body{
     text-justify: inter-word;
     padding: 0 4%;
     line-height: 2.5em;
-    border-bottom: solid 2px rgb(14, 47, 117);
+    
 }
 
 @media screen and (max-width: 425px) {
@@ -128,6 +145,12 @@ body{
 
     .contact-links {
         display: flex;
-        flex-direction: row;    
+        flex-direction: row;  
+        justify-content: center;
+        font-size: 14xpx;  
+    }
+
+    .footer {
+        padding: 4%;
     }
 }
