@@ -2,20 +2,40 @@
 {% load static %}
 
 {% block content %}
+<div class="" id="new-project-container">
+    <a class="blue-button" href="{% url 'new_project' %}">+ New Project</a>
+</div>
 
-{% if not project_lists %}
-    <h1>Nothing to show here!!!</h1>
-{% else %}
-    <div class="post-snippet">
+<div class="projects-container">
+    {% if not project_lists %}
+        <h1>Nothing to show here!!!</h1>
+    {% else %}
         {% for project in project_lists %}
-            <h1 class="p-title">{{ project.title }}</h1>
-            <a class="btn-read" href="{{ project.url }}">Read More</a>
-            <div class="p-sub-details">
-                <i class="fas fa-user p-icon"></i><h2 class="p-sub-text"> {{ project.author }}</h2>
-                <i class="fas fa-clock p-icon"></i><h2 class="p-sub-text"> {{ project.date }}</h2>
-            </div>
+        <div class="project">
+            <div class="post-card-flip">
+                <div class="post-snippet">
+                    <div class="front">
+                        <h1 class="p-title">{{ project.title }}</h1>
+                        <div class="p-sub-details">
+                            <i class="fas fa-user p-icon"></i><p class="p-sub-text"> {{ project.author }}</p>
+                            <p class="p-sub-text"> {{ project.date }}</p>
+                        </div>
+                        
+                    </div>
+                    <div class="back">
+                        <p>{{ project.description }}</p>
+                        <a class="btn-read" href="{% url 'project_detail' project.pk %}">Read More</a>
+                    </div>
+                </div>
+            </div> 
+        </div>
+        
+        
         {% endfor %}
-    </div>
-{% endif %}
-
+    {% endif %}  
+        
 {% endblock content %}
+
+{% block js %}
+    <script src="{% static 'js/project.js' %}"></script>
+{% endblock js %}

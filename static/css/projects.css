@@ -1,43 +1,118 @@
-.post-snippet {
-    width: 50%;
-    margin: auto;
-    padding: 1%;
-   
-    margin-bottom: 1%;
+.navbar-relative {  /* remove sticky navbar for card flipper, try using js to render properly */
+    position: relative;
 }
+
+#new-project-container {
+    display: flex;
+    justify-content: end;
+    padding: 0.7em 1em;
+}
+
+/*#new-project-container a {
+    text-decoration: none;
+    padding: 0.7em 2em;
+    background-color: #23395B;
+    color: #ffff;
+} */
+
+.projects-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.project {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1em;
+    margin: auto;
+}
+
+.post-card-flip {
+    width: 400px;
+    height: 300px;
+    perspective: 1000px;
+}
+
+.post-snippet {
+    /* width: calc(80% / 3); */
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+}
+
+.post-card-flip:hover .post-snippet {
+    transform: rotateY(180deg);
+  }
+
+.front, .back {
+    border: 0.1px solid #fff;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px 1px #999;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    padding: 1em;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+
+.front {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+.back {
+    border: 0.1px solid #23395B;
+    background-color: #23395B;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transform: rotateY(180deg);
+  }
+
 
 .p-title{
     margin-top: 1%;
     margin-bottom: 4%;
-    font-size: 24px;
-    font-weight: 300;
+    font-size: 36px;
 }
 
 .btn-read {
+    display: inline-block;
+    width: 50%;
     text-decoration: none;
-    color: #ffff;
-    background: rgb(14, 93, 117);
-    padding: 2%;
+    color: #23395B;
+    background: #ffff;
+    padding: 1em 2em;
+    margin-top: 1em;
 }
 
 .btn-read:hover {
-    color: rgb(14, 47, 117);
-    background: #ffff;
-    border: solid 1px rgb(14, 47, 117);
+    background-color: #288E1C;
+    color: #ffff;
 }
 
 .p-sub-details {
-    margin-top: 4%;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     color: gray;
-    border-bottom: solid 1px black;
+    
 }
 
 .p-sub-text {
     font-size: 16px;
     color: gray;
-    margin-right: 4%;
     font-weight: 100;
 }
 
@@ -45,11 +120,122 @@
     margin-right: 1%;
 }
 
-@media screen and (max-width: 425px) {
-    .post-snippet {
-        width: 90%;
-    }
+.page-container {
+    padding: 1.5rem;
+    text-align: justify;
+}
 
+.project-body{
+    margin-top: 1rem;
+}
+
+.blue-button {
+    text-decoration: none;
+    padding: 0.7em 2em;
+    background-color: #23395B;
+    color: #ffff;
+}
+
+.red-button {
+    text-decoration: none;
+    padding: 0.7em 2em;
+    background-color: #be2b2b;
+    color: #ffff;
+}
+
+.blue-button:hover, .red-button:hover {
+    color: white;
+}
+
+.project-page-button {
+    display: inline-block;
+    margin-top: 1em;
+    border: none;
+}
+
+.image-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 640px;
+    border-top: 2px solid #23395B;
+    border-bottom: 2px solid #23395B;
+    padding: 1em;
+    margin: 1em 0;
+}
+
+.image-container img {
+    display: block;
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    min-height: 100%;
+}
+
+/* The next two classes are helpers to ease displaying data with js */
+.d-none {
+    display: none;
+}
+
+.d-block {
+    display: block;
+}
+
+/* The Modal (background) */
+.modal {
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+  
+  /* Modal Content/Box */
+  .modal-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+}
+  
+  /* The Close Button */
+  .close {
+    color: #aaa;
+    align-self: flex-end;
+    font-size: 28px;
+    font-weight: bold;
+}
+  
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 360px) {
+    .post-card-flip {
+        width: 260px;
+        height: 350px;
+    }
+}
+
+@media screen and (min-width: 375px) and (max-width: 425px) {
+    .projects-container {
+        flex-direction: column;
+    }
+    .post-card-flip {
+        width: 360px;
+        height: 300px;
+    }
     .p-title{
         margin-bottom: 5%;
     }
