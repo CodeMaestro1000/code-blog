@@ -16,7 +16,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600&family=Poppins:wght@200;300;400&display=swap" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <title>The boring blog</title>
+    <title>{% block title %}The boring blog{% endblock title %}</title>
   </head>
   <body>
         <nav class="navbar navbar-sticky" id="#sticky-nav"> 
@@ -31,6 +31,11 @@
             </div>
         </nav>
     <main>
+        {% if user.is_authenticated %}
+            <p class="login-info">
+                <span>You are logged in as <a href="{% url 'user_info' user.pk %}">{{user.username}}</a>, Logout <a href="{% url 'logout' %}">Here</a></span>
+            </p>
+        {% endif %}
         {% block content %}
 
         {% endblock content %}

@@ -1,0 +1,28 @@
+.form-container {
+    display: block;
+    padding: 2rem;
+}
+
+.form-input {
+    display: block;
+    width: 70%;
+}
+
+#author-field {
+    width: 30%;
+}
+
+#description-field {
+    height: 4em;
+}
+
+#body-field {
+    height: 10em;
+}
+
+input[type="submit"] {
+    background-color: #23395B;
+    color: #ffff;
+    padding: 0.5em 2em;
+    border: none;
+}

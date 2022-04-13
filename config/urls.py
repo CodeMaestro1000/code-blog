@@ -16,7 +16,17 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+'''
+    I included both the accounts app and the built-in auth app because the built-in auth app already provides views and urls for log in 
+    and log out. 
+    But for sign up we will need to create our own view and url. To ensure that our URL routes are consistent we place
+    them both at accounts/ so the eventual URLS will be /accounts/login, /accounts/logout, and
+    /accounts/signup.
+'''
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('blog.urls'))
+    path('', include('blog.urls')),
+    path('accounts/', include('accounts.urls')),
+    path('accounts/', include('django.contrib.auth.urls')),
 ]

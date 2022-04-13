@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="data-container">
+        <form action="" method="post">
+            {% csrf_token %}
+            <div class="user-input-container">
+                {{form.username.label_tag}}
+                {{form.username}}
+                {% for error in form.username.errors %}
+                    <div class="form-errors">
+                        <span class="error-text">{{error}}</span>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="user-input-container">
+                {{form.first_name.label_tag}}
+                {{form.first_name}}
+                {% for error in form.first_name.errors %}
+                    <div class="form-errors">
+                        <span class="error-text">{{error}}</span>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="user-input-container">
+                {{form.last_name.label_tag}}
+                {{form.last_name}}
+                {% for error in form.last_name.errors %}
+                    <div class="form-errors">
+                        <span class="error-text">{{error}}</span>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="user-input-container">
+                <label for="">Email:</label>
+                <input class="user-data-input" type="text" value="{{user.email}}" disabled>
+            </div>
+            <div class="button-container">
+                <button type="submit" class="app-button blue-button">Update</button>
+            </div>
+        </form>
+        
+    </div>
+
+
+{% endblock content %}

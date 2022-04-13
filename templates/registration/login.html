@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block title %}Log In{% endblock title %}
+{% block content %}
+    <div class="form-card">
+        <p id="form-header-text">Log in</p>
+        <form method="post" id="login-form">
+            {% csrf_token %}
+            <div class="input-container">
+                {{form.username.label_tag}}
+                {{form.username}}
+                <!-- Can put error messages data if you wish to -->
+            </div>
+            <div class="input-container">
+                {{form.password.label_tag}}
+                {{form.password}}
+            </div>
+            {% if form.non_field_errors %}
+                {% for error in form.non_field_errors %}
+                    <div class="form-errors">
+                        <span style="color: red;">{{error}}</span>
+                    </div>
+                {% endfor %}
+            {% endif %}
+            
+            <button class="app-button blue-button" type="submit">Log In</button>
+        </form>
+        <div class="mt-2">
+            <a href="{% url 'password_reset' %}">Forgot Password?</a>
+        </div>
+    </div>
+    
+{% endblock content %}

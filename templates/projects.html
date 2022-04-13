@@ -2,10 +2,11 @@
 {% load static %}
 
 {% block content %}
+{% if user.is_authenticated %}
 <div class="" id="new-project-container">
     <a class="blue-button" href="{% url 'new_project' %}">+ New Project</a>
 </div>
-
+{% endif %}
 <div class="projects-container">
     {% if not project_lists %}
         <h1>Nothing to show here!!!</h1>

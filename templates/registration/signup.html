@@ -1,0 +1,179 @@
+{% extends 'base.html' %}
+{% block title %}Sign Up{% endblock title %}
+{% block content %}
+    <div class="form-card">
+        <p id="form-header-text">Sign Up</p>
+        <form class="needs-validation" method="post" novalidate>
+            {% csrf_token %}
+            <div class="input-container">
+                {{form.first_name.label_tag}}
+                {{form.first_name}}
+                <div class="invalid-feedback">
+                    Please enter your first name.
+                </div>
+                {% for error in form.first_name.errors %}
+                    <div class="form-errors">
+                        <span class="error-text">{{error}}</span>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="input-container">
+                {{form.last_name.label_tag}}
+                {{form.last_name}}
+                <div class="invalid-feedback">
+                    Please enter your last name.
+                </div>
+                {% for error in form.last_name.errors %}
+                    <div class="form-errors">
+                        <span class="error-text">{{error}}</span>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="input-container">
+                {{form.email.label_tag}}
+                {{form.email}}
+                <div class="invalid-feedback">
+                    Please enter your email address.
+                </div>
+                {% for error in form.email.errors %}
+                    <div class="form-errors">
+                        <span class="error-text">{{error}}</span>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="input-container">
+                {{form.username.label_tag}}
+                {{form.username}}
+                <div class="invalid-feedback">
+                    Please enter your username.
+                </div>
+                <div class="d-none username-format-error">
+                    <span class="error-text">Username must be two characters or more without spaces.</span>
+                </div>
+                {% for error in form.username.errors %}
+                    <div class="form-errors">
+                        <span class="error-text">{{error}}</span>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="input-container">
+                {{form.password1.label_tag}}
+                {{form.password1}}
+                {% for error in form.password1.errors %}
+                    <div class="form-errors">
+                        <span class="error-text">{{error}}</span>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="input-container">
+                {{form.password2.label_tag}}
+                {{form.password2}}
+                <div class="invalid-feedback">
+                    The passwords don't match.
+                </div>
+                {% for error in form.password2.errors %}
+                    <div class="form-errors">
+                        <span class="error-text">{{error}}</span>
+                    </div>
+                {% endfor %}
+            </div>
+            {% if form.non_field_errors %}
+                {% for error in form.non_field_errors %}
+                    <div class="form-errors">
+                        <span class="error-text">{{error}}</span>
+                    </div>
+                {% endfor %}
+            {% endif %}
+            <button class="app-button blue-button" type="submit">Sign Up</button>
+        </form>
+    </div>
+    
+{% endblock content %}
+
+{% block js %}
+    <script> 
+        // Bootstrap JS Validation 
+        (function () {
+        'use strict'
+  
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    var forms = document.querySelectorAll('.needs-validation')
+  
+    // Loop over them and prevent submission
+    Array.prototype.slice.call(forms)
+      .forEach(function (form) {
+        form.addEventListener('submit', function (event) {
+          if (!form.checkValidity()) {
+            event.preventDefault()
+            event.stopPropagation()
+          }
+  
+          form.classList.add('was-validated')
+        }, false)
+      })
+    })()
+    </script>
+
+    <script>
+        const confirm_password = document.querySelector("#confirm-password-field");
+        const password = document.querySelector("#password-field");
+        const username = document.querySelector("#username-field");
+        const first_name = document.querySelector("#first-name-field");
+        const last_name = document.querySelector("#last-name-field");
+
+        password.addEventListener('input', ()=>{
+            if ((confirm_password.value != "") && (password.value != confirm_password.value)){
+                password.classList.add("is-invalid");
+                password.classList.remove("is-valid");
+                confirm_password.classList.add("is-invalid");
+                confirm_password.classList.remove("is-valid");
+            }
+            else if ((confirm_password.value != "") && (password.value === confirm_password.value)) {
+                password.classList.remove("is-invalid");
+                password.classList.add("is-valid");
+                confirm_password.classList.add("is-invalid");
+                confirm_password.classList.remove("is-valid");
+            }
+        });
+
+        confirm_password.addEventListener('input', ()=>{
+            if (confirm_password.value != password.value){
+                password.classList.add("is-invalid");
+                password.classList.remove("is-valid");
+                confirm_password.classList.add("is-invalid");
+                confirm_password.classList.remove("is-valid");
+            }
+            else {
+                password.classList.remove("is-invalid");
+                password.classList.add("is-valid");
+                confirm_password.classList.add("is-valid");
+                confirm_password.classList.remove("is-invalid");
+            } 
+        });
+
+        username.addEventListener('input', ()=>{
+            if (validate_field(username.value)){
+                document.querySelector(".username-format-error").classList.remove("d-none");
+            }
+            else document.querySelector(".username-format-error").classList.add("d-none");
+        });
+
+        const validate_field = function (string){
+            if (string.length < 2){
+                return true;
+            }
+            if ((/\s/).test(string)){
+                return true;
+            }
+            return false;
+        }
+
+        document.querySelector('button[type="submit"]').addEventListener('click', (e)=>{
+            if (validate_field(username.value)) {
+                e.preventDefault();
+            }
+            
+        });
+    </script>
+{% endblock js %}
+

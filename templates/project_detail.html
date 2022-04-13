@@ -4,27 +4,33 @@
 {% block content %}
     <div class="page-container">
         <!-- Delete Post Confirmation Modal -->
+        
+        {% if user.username|lower ==  project.author|lower %}
         <div class="d-none modal" id="delete-modal">
             <div class="modal-content">
                 <span class="close">&times;</span>
                 <p>Are you sure you want to delete?</p>
                 <form action="{% url 'delete_project' project.pk %}" method="post">
                     {% csrf_token %}
-                    <button class="project-page-button blue-button" id="cancel">Cancel</button>
-                    <button class="project-page-button red-button" id="delete">Delete</button>
+                    <button class="app-button blue-button" id="cancel">Cancel</button>
+                    <button class="app-button red-button" id="delete">Delete</button>
                 </form>
             </div>
         </div>
+        
+        {% endif %}
         <!-- Modal Ends here -->
         <h1>{{project.title}}</h1>
         <div class="post-metadetails">
             <span class="p-sub-text"> By {{ project.author }},</span>
             <span class="p-sub-text">{{ project.date }}</span>
         </div>
+        {% if user.username|lower ==  project.author|lower %}
         <div>
-            <a class="project-page-button blue-button" id="post-edit" href="{% url 'edit_project' project.pk %}">Edit</a>
-            <button class="project-page-button red-button" id="modal-btn">Delete</button>
+            <a class="app-button blue-button" id="post-edit" href="{% url 'edit_project' project.pk %}">Edit</a>
+            <button class="app-button red-button" id="modal-btn">Delete</button>
         </div>
+        {% endif %}
         
         <div class="project-body">
             <p>{{ project.body }}</p>
