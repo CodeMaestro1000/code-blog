@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="page-container">
+        
+        {% if user.username|lower ==  post.author|lower %}
+        <div class="d-none modal" id="delete-modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <p>Are you sure you want to delete?</p>
+                <form action="{% url 'delete_post' post.pk %}" method="post">
+                    {% csrf_token %}
+                    <button class="app-button blue-button" id="cancel">Cancel</button>
+                    <button class="app-button red-button" id="delete">Delete</button>
+                </form>
+            </div>
+        </div>
+        
+        {% endif %}
+        <!-- Delete Modal Ends here -->
+
+        <!-- Comment Modal -->
+        <div class="d-none modal" id="comment-modal">
+            <div class="modal-content" id="">
+                <span class="close">&times;</span>
+                
+                <form action="" method="post" id="comment-form">
+                    <p>Got questions or suggestions, I'd love to hear them.</p>
+                    {% csrf_token %}
+                    <div class="input-container">
+                        {{form.author.label_tag}}
+                        {{form.author}}
+                        {% for error in form.author.errors %}
+                            <div class="form-errors">
+                                <span class="error-text">{{error}}</span>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    
+                    <div class="input-container">
+                        {{form.comment.label_tag}}
+                        {{form.comment}}
+                        {% for error in form.comment.errors %}
+                            <div class="form-errors">
+                                <span class="error-text">{{error}}</span>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    
+                    <button class="app-button blue-button" id="delete">Post</button>
+                </form>
+            </div>
+        </div>
+        <!-- Comment Modal Ends here -->
+
+        <h1>{{post.title}}</h1>
+        <div class="post-metadetails">
+            <span class="p-sub-text"> By {{ post.author }},</span>
+            <span class="p-sub-text">{{ post.date }}</span>
+        </div>
+
+        {% if user.username|lower ==  post.author|lower %}
+        <div>
+            <a class="app-button blue-button" id="post-edit" href="{% url 'edit_post' post.pk %}">Edit</a>
+            <button class="app-button red-button modal-btn" id="">Delete</button>
+        </div>
+        {% endif %}
+        
+        <div class="project-body">
+            <p>{{ post.body }}</p>
+        </div>
+
+        <div class="comment-section">
+            <h1>Comments</h1>
+                {% if post.comments.all  %}
+                    
+                    <div class="comment-block"></div>
+                        {% for comment in post.comments.all %}
+                            <span class="p-sub-text">{{comment.author}} &nbsp;| &nbsp;</span>
+                            <span class="p-sub-text">{{comment.date}}</span>
+                            <p>{{comment.comment}}</p>
+                        {% endfor %}
+                    </div>
+                    <div class="comment-input-section">
+                        <p class="comment-text modal-btn">Join the conversation <button class="app-button blue-button">+ Comment</button></p>
+                    </div>
+                    {% else %}
+                    <div class="comment-input-section">
+                        <p class="comment-text modal-btn">Be the first to  <button class="app-button blue-button">Comment</button></p>
+                    </div>
+                {% endif %}
+            
+        </div>
+        
+    </div>
+{% endblock content %}
+{% block js %}
+    <script src="{% static 'js/post.js' %}"></script>
+{% endblock js %}
