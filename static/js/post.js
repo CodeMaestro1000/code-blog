@@ -105,11 +105,10 @@ function formatCode(text) {
                         'not', 'or', 'pass', 'raise', 'return', 'try', 'while', 'with', 'yield']
     const keyword_regex = new RegExp("\\b(?:" + keywords.join("|") + ")\\b", "g");
     const comment_regex = /#(.*)/g;
-    const function_name_regex = /\b(?<=def\b).*/g; // for styling function names
+    const function_name_regex = /\bdef\b(.*)/g; // for styling function names
     const def_keyword_regex = /\bdef\b/g; // for styling the class regex
     const string_regex = /'.*?'/g; 
-    //const class_regex = /class/g;
-    const class_name_regex = /(?<=class<\/span>).*/g; // for styling class names
+    const class_name_regex = /class<\/span>(.*)/; // for styling class names
 
     // These matches are useful for the replace function operation
     let keyword_matches = text.match(keyword_regex);
@@ -134,7 +133,7 @@ function formatCode(text) {
     j = 0;
     text = text.replace(function_name_regex, function() {
         j += 1;
-        return `<span class="function">${function_name_matches[j-1]}</span>`;
+        return `${function_name_matches[j-1].split(' ')[0]} <span class="function">${function_name_matches[j-1].split(' ')[1]}</span>`;
     });
 
     j = 0;
@@ -153,7 +152,7 @@ function formatCode(text) {
     let class_name_matches = text.match(class_name_regex);
     text = text.replace(class_name_regex, function() {
         j += 1;
-        return `<span class="class-name">${class_name_matches[j-1]}</span>`;
-    });
+        return `${class_name_matches[j-1].split(' ')[0]} <span class="class-name">${class_name_matches[j-1].split(' ')[1]}</span>`;
+    }); 
     return text;
 }
