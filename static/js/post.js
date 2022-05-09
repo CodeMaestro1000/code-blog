@@ -125,6 +125,7 @@ function formatCode(text) {
     let comment_matches = text.match(comment_regex); 
     let function_name_matches = text.match(function_name_regex);  
     let def_keyword_matches = text.match(def_keyword_regex);
+    let string_matches = text.match(string_regex);
     
     
     let j = 0;
