@@ -252,6 +252,7 @@ body {
 
 .project-body {
     margin-top: 1rem;
+    line-height: 2em;
 }
 
 .blue-button {
@@ -304,11 +305,26 @@ body {
     margin: 1em auto;
     padding: 1em 1em;
     background-color: #abb2bf;
+    position: inherit !important; /* to prevent code grepper from messing my page up */
 }
 
 .inline-code {
     color: black;
+    display: inline;
+    padding: 0.5em 1em;
+    
 }
+
+.output {
+    display: block;
+    width: 70%;
+    margin: 1em auto;
+    padding: 1em 1em;
+    background-color: #e4e6ea;
+    color: black;
+    position: inherit !important; /* to prevent code grepper from messing my page up */
+}
+
 /* For styling code snippets */
 .keyword {
     color: #d63384;
@@ -410,8 +426,14 @@ body {
 }
 
 #body-field {
-    height: 10em;
+    height: 30em;
+    overflow-y: auto;
 }
+
+#body-field::-webkit-scrollbar {
+    width: 10px;
+    border-radius: 10px;
+  }
 
 .form-card {
     display: flex;
@@ -673,6 +695,10 @@ body {
 
     .image-container {
         height: auto;
+    }
+
+    #title-field, #body-field, #description-field {
+        width: 90%;
     }
 }
 

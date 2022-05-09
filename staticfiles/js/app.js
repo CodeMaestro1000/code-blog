@@ -37,9 +37,11 @@ $( document ).ready(function() { // function for formatting code when page is co
     const img_regex = /%%.*?%%/g; // regex to parse img src attribute (text in-between ```-``` quotes)
     const code_regex = /```.*?```/sg; // `xxx` for code, s modifier is for multiline code snippets
     const link_regex = /@@.*?@@/g;
+    const output_regex = /~~.*?~~/sg; // for displaying output of code
     const img_matches = body.textContent.match(img_regex); 
     const code_matches = body.textContent.match(code_regex);
     const link_matches = body.textContent.match(link_regex);
+    const output_matches = body.textContent.match(output_regex);
     
     let newHtml = body.textContent;
     
@@ -60,6 +62,14 @@ $( document ).ready(function() { // function for formatting code when page is co
         i += 1;
         let string = link_matches[i-1].split('@@')[1];
         return `<a href="${string.split("|")[0]}" target="_blank">${string.split("|")[1]}</a>`;} 
+    ); // end replace statement
+
+    // regex to match output snippets
+    i = 0;
+    newHtml = newHtml.replace(output_regex, function () {
+        i += 1;
+        let string = output_matches[i-1].split('~~')[1];
+        return `<pre class="output"><code>${string}</code></pre>` ;} 
     ); // end replace statement
 
     // regex to match code snippets

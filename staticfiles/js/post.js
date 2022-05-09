@@ -45,9 +45,11 @@ $( document ).ready(function() {
     const img_regex = /%%.*?%%/g; // regex to parse img src attribute (text in-between ```-``` quotes)
     const code_regex = /```.*?```/sg; // `xxx` for code, s modifier is for multiline code snippets
     const link_regex = /@@.*?@@/g;
+    const output_regex = /~~.*?~~/sg; // for displaying output of code
     const img_matches = body.textContent.match(img_regex); 
     const code_matches = body.textContent.match(code_regex);
     const link_matches = body.textContent.match(link_regex);
+    const output_matches = body.textContent.match(output_regex);
     
     let newHtml = body.textContent;
     
@@ -68,6 +70,14 @@ $( document ).ready(function() {
         i += 1;
         let string = link_matches[i-1].split('@@')[1];
         return `<a href="${string.split("|")[0]}" target="_blank">${string.split("|")[1]}</a>`;} 
+    ); // end replace statement
+
+    // regex to match output snippets
+    i = 0;
+    newHtml = newHtml.replace(output_regex, function () {
+        i += 1;
+        let string = output_matches[i-1].split('~~')[1];
+        return `<pre class="output"><code>${string}</code></pre>` ;} 
     ); // end replace statement
 
     // regex to match code snippets
@@ -105,18 +115,16 @@ function formatCode(text) {
                         'not', 'or', 'pass', 'raise', 'return', 'try', 'while', 'with', 'yield']
     const keyword_regex = new RegExp("\\b(?:" + keywords.join("|") + ")\\b", "g");
     const comment_regex = /#(.*)/g;
-    const function_name_regex = /\b(?<=def\b).*/g; // for styling function names
+    const function_name_regex = /\bdef\b(.*)/g; // for styling function names
     const def_keyword_regex = /\bdef\b/g; // for styling the class regex
     const string_regex = /'.*?'/g; 
-    //const class_regex = /class/g;
-    const class_name_regex = /(?<=class<\/span>).*/g; // for styling class names
+    const class_name_regex = /class<\/span>(.*)/; // for styling class names
 
     // These matches are useful for the replace function operation
     let keyword_matches = text.match(keyword_regex);
     let comment_matches = text.match(comment_regex); 
     let function_name_matches = text.match(function_name_regex);  
     let def_keyword_matches = text.match(def_keyword_regex);
-    let string_matches = text.match(string_regex);
     
     
     let j = 0;
@@ -134,7 +142,7 @@ function formatCode(text) {
     j = 0;
     text = text.replace(function_name_regex, function() {
         j += 1;
-        return `<span class="function">${function_name_matches[j-1]}</span>`;
+        return `${function_name_matches[j-1].split(' ')[0]} <span class="function">${function_name_matches[j-1].split(' ')[1]}</span>`;
     });
 
     j = 0;
@@ -153,7 +161,7 @@ function formatCode(text) {
     let class_name_matches = text.match(class_name_regex);
     text = text.replace(class_name_regex, function() {
         j += 1;
-        return `<span class="class-name">${class_name_matches[j-1]}</span>`;
-    });
+        return `${class_name_matches[j-1].split(' ')[0]} <span class="class-name">${class_name_matches[j-1].split(' ')[1]}</span>`;
+    }); 
     return text;
 }
