@@ -23,6 +23,7 @@ class ProjectView(DetailView): # individual project view
     model = Project
     context_object_name = 'project'
 
+# Mixins should come first before the view you're inheriting from!!!
 class ProjectCreateView(LoginRequiredMixin, CreateView):
     template_name = 'new_project.html'
     model = Project

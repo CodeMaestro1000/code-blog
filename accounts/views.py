@@ -1,8 +1,10 @@
+from urllib import request
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView
 from django.contrib.auth.views import PasswordChangeView, PasswordResetView, PasswordResetConfirmView
 from .models import CustomUser
 from .forms import CustomUserCreationForm, ChangePasswordForm, UserDetailsUpdateForm, ResetPasswordForm, CustomSetPasswordForm
+from django.contrib.auth.mixins import UserPassesTestMixin
 from django.shortcuts import redirect, render
 
 
@@ -31,7 +33,7 @@ class CustomPasswordResetConfirmView(PasswordResetConfirmView): # view for enter
     form_class = CustomSetPasswordForm
 
 
-class UserDetailsView(UpdateView):
+class UserDetailsView(UserPassesTestMixin, UpdateView): # Mixins should always come first
     template_name = 'user.html'
     form_class = UserDetailsUpdateForm
     model = CustomUser
@@ -44,6 +46,10 @@ class UserDetailsView(UpdateView):
 
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
-            return redirect('home') # to prevent signed in users from accessing the sign up page
+            return redirect('home') # to prevent users who aren't signed in to view a users profile
 
         return super().dispatch(request, *args, **kwargs)
+
+    def test_func(self): # to check if request is coming the owner of the account
+        obj = self.get_object()
+        return obj.email == self.request.user.email
